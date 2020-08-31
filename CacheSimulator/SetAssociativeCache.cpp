@@ -24,8 +24,6 @@ public:
 
 		printf("[SA] Size in bits is: %d\n", size);
 
-		if (size > 840) toobig = true;
-
 	}
 
 	bool dataExistsInCache(int address) {

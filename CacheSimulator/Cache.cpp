@@ -14,8 +14,6 @@ public:
 	std::vector<bool> valid;
 	std::vector<int> tags;
 
-	bool toobig = false;
-
 	Cache(int rows)
 		: rows(rows), dataBlockSize(0), misses(0), hits(0)
 	{

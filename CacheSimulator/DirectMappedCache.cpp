@@ -7,17 +7,19 @@ public:
 
 	bool write = false;
 
-	DirectMappedCache(int rows, int dbs)
-		: Cache(rows)
+	/// <summary>
+	/// Construct a new direct-mapped cache.
+	/// </summary>
+	/// <param name="rows">The number of sets.</param>
+	/// <param name="dbs">The size of blocks in bytes.</param>
+	DirectMappedCache(int sets, int dbs)
+		: Cache(sets)
 	{
-		dataBlockSize = dbs; // Requires a total of 600 bits
+		dataBlockSize = dbs;
 
-		// rows(8)* [valid(1) + tag(16 - 3 - 3) + 8 * dbs(8)] = 600 bits
 		int size = rows * (1 + 16 - ((int)ceil(log2(dbs))) - ((int)ceil(log2(rows))) + 8 * dbs);
 
 		printf("[DM] Size in bits is: %d\n", size);
-
-		if (size > 840) toobig = true;
 	}
 
 	bool dataExistsInCache(int address) {
@@ -30,11 +32,11 @@ public:
 
 		if (valid[row] && tags[row] == tag)
 		{
-			if (write) std::cout << "[DM] Hit!\tAddress: " << address << "\tRow: " << row << "\tTag: " << tag << std::endl;
+			if (write) std::cout << "[DM] Hit!\tAddress: " << address << "\tTag: " << tag << "\tSet: " << row << "\tOffset: " << offset << std::endl;
 			return true;
 		}
 
-		if (write) std::cout << "[DM] Miss!\tAddress: " << address << "\tRow: " << row << "\tTag: " << tag << std::endl;
+		if (write) std::cout << "[DM] Miss!\tAddress: " << address << "\tTag: " << tag << "\tSet: " << row << "\tOffset: " << offset << std::endl;
 
 		return false;
 	}

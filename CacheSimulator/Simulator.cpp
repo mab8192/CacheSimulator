@@ -8,17 +8,15 @@ using namespace std;
 
 int main() {
 
-	int size = 840; // num bits the cache can take up
-
-	int addresses[] = { 4, 8, 12, 16, 20, 32, 36, 40, 44, 20, 32, 36, 40, 44, 64, 68, 4, 8, 12, 92, 96, 100, 104, 108, 112, 100, 112, 116, 120, 128, 140, 144};
+	int addresses[] = { 1,65,132,19,0,64,131,1 };
 	int length = sizeof(addresses) / sizeof(int);
 
-	FullyAssociativeCache* fa = new FullyAssociativeCache(10, 8); // rows (10) * [1 + (16 - 3)  + 8*dbs(8) + LRU (3)] = 810 bits
-	DirectMappedCache* dm = new DirectMappedCache(4, 24); // rows (8) * [8*dbs(8) + valid (1) + tag(16 - 3 - 3)] = 600 bits
-	SetAssociativeCache* sa = new SetAssociativeCache(1, 10, 8); // rows(4) * [ 2 * [1 + (16 - 3)  + 8*dbs(8) + LRU (3)]] = 648 bits
+	FullyAssociativeCache* fa = new FullyAssociativeCache(10, 8);
+	DirectMappedCache* dm = new DirectMappedCache(4, 4);
+	SetAssociativeCache* sa = new SetAssociativeCache(1, 10, 8);
 
 	fa->write = false;
-	dm->write = false;
+	dm->write = true;
 	sa->write = false;
 
 	for (int j = 0; j < 2; j++) {
