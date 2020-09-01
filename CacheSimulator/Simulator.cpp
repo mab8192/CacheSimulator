@@ -13,11 +13,11 @@ int main() {
 
 	FullyAssociativeCache* fa = new FullyAssociativeCache(10, 8);
 	DirectMappedCache* dm = new DirectMappedCache(4, 4);
-	SetAssociativeCache* sa = new SetAssociativeCache(1, 10, 8);
+	SetAssociativeCache* sa = new SetAssociativeCache(2, 2, 4);
 
 	fa->write = false;
-	dm->write = true;
-	sa->write = false;
+	dm->write = false;
+	sa->write = true;
 
 	for (int j = 0; j < 2; j++) {
 

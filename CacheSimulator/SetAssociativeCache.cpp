@@ -10,17 +10,17 @@ public:
 
 	bool write = false;
 
-	SetAssociativeCache(int rows, int ways, int dbs)
-		: Cache(rows)
+	SetAssociativeCache(int sets, int associativity, int dbs)
+		: Cache(sets)
 	{
 		dataBlockSize = dbs;
 
 		for (int i = 0; i < rows; i++) {
-			cache.push_back(new FullyAssociativeCache(ways, dbs));
+			cache.push_back(new FullyAssociativeCache(associativity, dbs));
 		}
 
 		// rows(4) * [ 2 * [1 + (16 - 3)  + 8*dbs(8) + LRU (2)]] = 648 bits
-		int size = rows * ways * (1 + 16 - ((int)ceil(log2(dbs))) + 8*dbs + ((int)ceil(log2(ways))));
+		int size = sets * associativity * (1 + 16 - ((int)ceil(log2(dbs))) + 8*dbs + ((int)ceil(log2(associativity))));
 
 		printf("[SA] Size in bits is: %d\n", size);
 
@@ -37,14 +37,14 @@ public:
 		for (int i = 0; i < rows; i++) {
 			if (cache[i]->dataExistsInCache(address)) {
 
-				if (write) std::cout << "[SA] Hit!\tAddress: " << address << "\tRow: " << row << "\tTag: " << tag << std::endl;
+				if (write) std::cout << "[SA] Hit!\tAddress: " << address << "\tTag: " << tag << "\tSet: " << row << "\tOffset: " << offset << std::endl;
 
 				return true;
 
 			}
 		}
 
-		if (write) std::cout << "[SA] Miss!\tAddress: " << address << "\tRow: " << row << "\tTag: " << tag << std::endl;
+		if (write) std::cout << "[SA] Miss!\tAddress: " << address << "\tTag: " << tag << "\tSet: " << row << "\tOffset: " << offset << std::endl;
 
 		return false;
 	}
