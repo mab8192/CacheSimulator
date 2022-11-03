@@ -8,13 +8,14 @@ using namespace std;
 
 int main() {
 
-	int addresses[] = { 1,65,132,19,0,64,131,1 };
+	int addresses[] = { 0, 1, 2, 3, 4, 0, 2, 4, 0, 2, 4 };
 	int length = sizeof(addresses) / sizeof(int);
 
-	FullyAssociativeCache* fa = new FullyAssociativeCache(10, 8);
+	FullyAssociativeCache* fa = new FullyAssociativeCache(4, 1);
 	DirectMappedCache* dm = new DirectMappedCache(4, 4);
-	SetAssociativeCache* sa = new SetAssociativeCache(2, 2, 4);
+	SetAssociativeCache* sa = new SetAssociativeCache(2, 2, 1);
 
+	// Whether or not to print the results of the memory accesses
 	fa->write = false;
 	dm->write = false;
 	sa->write = true;

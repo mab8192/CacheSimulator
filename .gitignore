@@ -3,6 +3,6 @@
 ################################################################################
 
 /x64/Debug
-/.vs/CacheSimulator/v16
-/CacheSimulator/x64/Debug
+/.vs
+**/debug
 *.user
